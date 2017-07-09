@@ -1,17 +1,36 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>
       Contact
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="addContact()">
+        <ion-icon name="add-circle"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
-    <ion-list-header>Follow us on Twitter</ion-list-header>
-    <ion-item>
-      <ion-icon name="ionic" item-left></ion-icon>
-      @ionicframework
-    </ion-item>
+    <ion-list-header>My Contacts</ion-list-header>
+    <ion-item-sliding *ngFor="let contact of contactList | async">
+      <ion-item>
+        <ion-icon name="book" danger item-left></ion-icon>
+        <h2>{{contact.name}}</h2>
+        <h3>Address: {{contact.address}}, {{contact.city}}</h3>
+        <p>Phone: {{contact.phone}}</p>
+      </ion-item>
+      <ion-item-options>
+        <button ion-button color="primary" icon-left (click)="editContact(contact)">
+          <ion-icon name="ios-create"></ion-icon>
+          Edit
+        </button>
+        <button ion-button color="danger" icon-left (click)="deleteContact(contact)">
+          <ion-icon name="ios-trash"></ion-icon>
+          Delete
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 </ion-content>
